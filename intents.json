@@ -1,0 +1,38 @@
+{
+    "intents": [
+        {
+            "tag": "greet",
+            "patterns": [
+                "hi",
+                "hello",
+                "hey",
+                "hola",
+                "buenos dias",
+                "buenas tardes",
+                "buenas noches",
+                "greetings",
+                "good morning",
+                "good afternoon",
+                "good evening"
+            ],
+            "responses": [
+                "Hola, como esta?",
+                "Hola, que puedo hacer por usted?",
+                "Hola, en que lo puedo ayudar?"
+            ]
+        },
+        {
+            "tag": "correo",
+            "patterns": [
+                "correo",
+                "correo electronico",
+                "correo electronica",
+                "necesito un cambio de contraseña"
+            ],
+            "responses": [
+                "Por favor, ingrese su correo electronico",
+                "Por favor, ingrese su correo electronico"
+            ]
+        }
+    ]
+}
