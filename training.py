@@ -1,9 +1,12 @@
 import random
+from socket import ntohl
 import numpy as np
 import json
 import pickle
 
 import nltk
+nltk.download('punkt')
+nltk.download('wordnet')
 
 from nltk.stem import WordNetLemmatizer
 
@@ -13,7 +16,7 @@ from tensorflow.keras.optimizers import SGD
 
 lemmatizer = WordNetLemmatizer()
 
-intents = json.loads(open('intents.json').read())
+intents = json.loads(open('intents.json', encoding='utf-8').read())
 words = []
 classes = []
 documents = []
@@ -49,8 +52,9 @@ for doc in documents:
         bag.append(1) if w in word_pattern else bag.append(0)
     
     output_row = list(output_empty) 
-    output_row[calsses.index(doc[1])] = 1
+    output_row[classes.index(doc[1])] = 1
     training.append([bag, output_row])
+    print(training)
 
 random.shuffle(training)
 training = np.array(training)
@@ -65,7 +69,7 @@ model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(len(train_y[0]), activation='softmax'))
 
-sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+sgd = SGD(learning_rate=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
 hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
